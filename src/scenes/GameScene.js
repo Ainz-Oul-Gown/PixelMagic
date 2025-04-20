@@ -177,7 +177,7 @@ export default class GameScene extends Phaser.Scene {
             const tree = this.add.sprite(position.x, position.y, 'tree');
             tree.setOrigin(0.5, 1);
             tree.setScale(0.1);
-            this.tweens.add({ targets: tree, scaleX: 0.5, scaleY: 0.5, duration: 300, ease: 'Power2' });
+            this.tweens.add({ targets: tree, scaleX: 0.2, scaleY: 0.2, duration: 300, ease: 'Power2' });
             message = 'Дерево создано!';
         } else if (spellName === 'circle') {
             const flower = this.add.sprite(position.x, position.y, 'flower');
