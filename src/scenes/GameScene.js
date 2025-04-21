@@ -2,10 +2,9 @@
 import Phaser from 'phaser';
 // УДАЛЯЕМ импорт библиотеки распознавания отсюда
 // import { OneDollarRecognizer, Point } from '$1-recognizer';
-
 // ИМПОРТИРУЕМ наш сервис и шаблоны
 import GestureRecognizerService from '../core/GestureRecognizerService'; // <-- Укажите правильный путь
-import gestureTemplates from '../config/gestureTemplates';           // <-- Укажите правильный путь
+import gestureTemplates from '../config/gestureTemplates'; // <-- Укажите правильный путь
 
 export default class GameScene extends Phaser.Scene {
     constructor() {
@@ -17,15 +16,17 @@ export default class GameScene extends Phaser.Scene {
 
         // ССЫЛКА на сервис распознавания (создадим его в create)
         this.gestureRecognizer = null;
+
+        this.ysdk = window.ysdk;
     }
 
     // УДАЛЯЕМ метод createGestureTemplates из GameScene
 
     preload() {
         // ... (загрузка ассетов остается такой же) ...
-        this.load.image('forest-bg', '/assets/images/forest_background.png');
-        this.load.image('tree', '/assets/images/tree.png');
-        this.load.image('flower', '/assets/images/flower.png');
+        this.load.image('forest-bg', './assets/images/forest_background.png');
+        this.load.image('tree', './assets/images/tree.png');
+        this.load.image('flower', './assets/images/flower.png');
     }
 
     create() {
@@ -49,6 +50,17 @@ export default class GameScene extends Phaser.Scene {
         }).setDepth(20);
 
         console.log('Игровая сцена создана, сервис распознавания готов.');
+
+        // ----- ВЫЗОВ YANDEX SDK LOADING API -----
+        // Сообщаем Яндексу, что игра загрузилась и готова
+        if (this.ysdk && this.ysdk.features.LoadingAPI) {
+            this.ysdk.features.LoadingAPI.ready();
+            console.log('Сообщение LoadingAPI.ready() отправлено.');
+        } else {
+            console.warn('YSДК или LoadingAPI не доступен, не могу отправить ready().');
+        }
+        // -----------------------------------------
+
     }
 
     // Метод update остается без изменений (если он был)
@@ -82,6 +94,7 @@ export default class GameScene extends Phaser.Scene {
                     this.graphics.strokePath();
                     this.graphics.moveTo(point.x, point.y);
                 }
+                
             }
         });
 

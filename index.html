@@ -6,12 +6,17 @@
   <title>Магия Пикселей</title>
   <style>
     body { margin: 0; overflow: hidden; background-color: #000; }
-    canvas { display: block; } /* Убираем возможные отступы под canvas */
+    canvas { display: block; }
   </style>
+
+  <!-- ===== ПОДКЛЮЧЕНИЕ ЯНДЕКС ИГР SDK ===== -->
+  <script src="https://yandex.ru/games/sdk/v2"></script>
+  <!-- ===================================== -->
+
 </head>
 <body>
 <div id="game-container"></div>
-<!-- Точка входа для Vite -->
-<script type="module" src="./src/main.js"></script>
+<!-- Точка входа для Vite (оставьте ее после SDK) -->
+<script type="module" src="/src/main.js"></script>
 </body>
 </html>
